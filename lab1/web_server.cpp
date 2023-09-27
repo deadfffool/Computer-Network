@@ -9,7 +9,7 @@
 using namespace std;
 
 const int DEFAULT_PORT = 8080;             // 服务器监听端口
-const string DEFAULT_ROOT_DIR = "/var/www"; // 服务器主目录
+const string DEFAULT_ROOT_DIR = "/home/miles/Computer-Network/lab1/webroot/index.html"; // 服务器主目录
 
 int main(int argc, char* argv[]) {
     // 创建套接字
@@ -63,7 +63,7 @@ int main(int argc, char* argv[]) {
         // 检查请求是否为根路径"/"
         if (request.find("GET / ") != string::npos) {
             // 读取HTML文件内容
-            ifstream htmlFile("/home/miles/Computer-Network/lab1/webroot/index.html");
+            ifstream htmlFile(rootDir);
             if (htmlFile.is_open()) {
                 stringstream htmlContent;
                 htmlContent << htmlFile.rdbuf();
