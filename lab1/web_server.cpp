@@ -60,8 +60,7 @@ int main(int argc, char* argv[]) {
         string request(buffer, bytesRead);
         cout << "Received request:\n" << request << endl;
 
-        // 检查请求是否为根路径"/"
-        if (request.find("GET / ") != string::npos) {
+        if (request.find("GET /index.html") != string::npos) {
             // 读取HTML文件内容
             ifstream htmlFile(rootDir);
             if (htmlFile.is_open()) {
@@ -78,16 +77,28 @@ int main(int argc, char* argv[]) {
 
                 // 关闭HTML文件
                 htmlFile.close();
-            } else {
-                // 文件打开失败，发送404错误
-                string notFoundResponse = "HTTP/1.1 404 Not Found\r\n"
-                                          "Content-Type: text/html\r\n"
-                                          "\r\n"
-                                          "<html><body><h1>404 Not Found</h1></body></html>";
-
-                send(client_socket, notFoundResponse.c_str(), notFoundResponse.size(), 0);
             }
-        } else {
+        }
+        else if (request.find("GET /image.jpg") != string::npos) 
+        {
+        ifstream imageFile("/home/miles/Computer-Network/lab1/webroot/image.jpg"); // 提供实际的图像文件路径
+        if (imageFile.is_open()) {
+            stringstream imageContent;
+            imageContent << imageFile.rdbuf();
+            
+            // 根据图像文件扩展名确定内容类型
+            string contentType = "image/jpeg"; // 根据实际的图像类型进行修改
+            
+            // 构建HTTP响应
+            string response = "HTTP/1.1 200 OK\r\n"
+                            "Content-Type: " + contentType + "\r\n"
+                            "\r\n" + imageContent.str();
+            
+            send(client_socket, response.c_str(), response.size(), 0);
+            imageFile.close();
+            }
+        }
+        else {
             // 其他请求返回404错误
             string notFoundResponse = "HTTP/1.1 404 Not Found\r\n"
                                       "Content-Type: text/html\r\n"
