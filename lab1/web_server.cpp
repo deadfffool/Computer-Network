@@ -4,6 +4,7 @@
 #include <cstring>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <arpa/inet.h>
 #include <unistd.h>
 
 using namespace std;
@@ -39,7 +40,7 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    cout << "Web server is running on port " << port << "..." << endl;
+    cout << "Web server is running on port " << port << "..." << endl<<endl;
 
     while (true) {
         // 等待客户端连接
@@ -49,6 +50,16 @@ int main(int argc, char* argv[]) {
             continue;
         }
         
+        // 获取客户端的IP地址和端口号
+        struct sockaddr_in client_addr;
+        socklen_t client_addr_len = sizeof(client_addr);
+        getpeername(client_socket, (struct sockaddr*)&client_addr, &client_addr_len);
+        char client_ip[INET_ADDRSTRLEN];
+        inet_ntop(AF_INET, &(client_addr.sin_addr), client_ip, INET_ADDRSTRLEN);
+        int client_port = ntohs(client_addr.sin_port);
+        
+        cout << "Connection from IP: " << client_ip << ", Port: " << client_port << endl;
+
         char buffer[1024];
         ssize_t bytesRead = recv(client_socket, buffer, sizeof(buffer), 0);
         if (bytesRead == -1) {
@@ -60,7 +71,9 @@ int main(int argc, char* argv[]) {
         string request(buffer, bytesRead);
         cout << "Received request:\n" << request << endl;
 
-        if (request.find("GET /index.html") != string::npos) {
+        //处理请求
+        if (request.find("GET /index.html") != string::npos)
+        {
             // 读取HTML文件内容
             ifstream htmlFile(rootDir+"/index.html");
             if (htmlFile.is_open()) {
@@ -72,11 +85,12 @@ int main(int argc, char* argv[]) {
 
                 // 发送HTTP响应给客户端
                 send(client_socket, response.c_str(), response.size(), 0);
-
+                cout << "sent html" << endl << endl;
                 // 关闭HTML文件
                 htmlFile.close();
             }
         }
+
         else if (request.find("GET /image.jpg") != string::npos) 
         {
         ifstream imageFile(rootDir+"/image.jpg");
@@ -93,10 +107,11 @@ int main(int argc, char* argv[]) {
                             "\r\n" + imageContent.str();
             
             send(client_socket, response.c_str(), response.size(), 0);
+            cout << "sent image" << endl << endl;
             imageFile.close();
             }
-            
         }
+
         else {
             // 其他请求返回404错误
             string notFoundResponse = "HTTP/1.1 404 Not Found\r\n"
