@@ -9,7 +9,7 @@
 using namespace std;
 
 const int DEFAULT_PORT = 8080;             // 服务器监听端口
-const string DEFAULT_ROOT_DIR = "/home/miles/Computer-Network/lab1/webroot/index.html"; // 服务器主目录
+const string DEFAULT_ROOT_DIR = "/home/miles/Computer-Network/lab1/webroot"; // 服务器主目录
 
 int main(int argc, char* argv[]) {
     // 创建套接字
@@ -62,12 +62,10 @@ int main(int argc, char* argv[]) {
 
         if (request.find("GET /index.html") != string::npos) {
             // 读取HTML文件内容
-            ifstream htmlFile(rootDir);
+            ifstream htmlFile(rootDir+"/index.html");
             if (htmlFile.is_open()) {
                 stringstream htmlContent;
                 htmlContent << htmlFile.rdbuf();
-
-                // 构建HTTP响应
                 string response = "HTTP/1.1 200 OK\r\n"
                                   "Content-Type: text/html\r\n"
                                   "\r\n" + htmlContent.str();
@@ -81,7 +79,7 @@ int main(int argc, char* argv[]) {
         }
         else if (request.find("GET /image.jpg") != string::npos) 
         {
-        ifstream imageFile("/home/miles/Computer-Network/lab1/webroot/image.jpg"); // 提供实际的图像文件路径
+        ifstream imageFile(rootDir+"/image.jpg");
         if (imageFile.is_open()) {
             stringstream imageContent;
             imageContent << imageFile.rdbuf();
@@ -97,6 +95,7 @@ int main(int argc, char* argv[]) {
             send(client_socket, response.c_str(), response.size(), 0);
             imageFile.close();
             }
+            
         }
         else {
             // 其他请求返回404错误
