@@ -71,10 +71,24 @@ int main(int argc, char* argv[]) {
         string request(buffer, bytesRead);
         cout << "Received request:\n" << request << endl;
 
+        
+        // string requestLine;
+        // size_t pos = request.find("\r\n");
+        // if (pos != string::npos) {
+        //     requestLine = request.substr(0, pos); // Get the first line of the HTTP request
+        //     // Now you can parse the requestLine to extract the URL
+        //     istringstream iss(requestLine);
+        //     string httpMethod, url, httpVersion;
+        //     iss >> httpMethod >> url >> httpVersion;
+            
+        //     // 'url' now contains the requested URL
+        //     cout << "Requested URL: " << url << endl;
+        // }
+
         //处理请求
         if (request.find("GET /index.html") != string::npos)
         {
-            // 读取HTML文件内容
+            cout<<"GET /index.html"<<endl;
             ifstream htmlFile(rootDir+"/index.html");
             if (htmlFile.is_open()) {
                 stringstream htmlContent;
@@ -93,23 +107,24 @@ int main(int argc, char* argv[]) {
 
         else if (request.find("GET /image.jpg") != string::npos) 
         {
-        ifstream imageFile(rootDir+"/image.jpg");
-        if (imageFile.is_open()) {
-            stringstream imageContent;
-            imageContent << imageFile.rdbuf();
-            
-            // 根据图像文件扩展名确定内容类型
-            string contentType = "image/jpeg"; // 根据实际的图像类型进行修改
-            
-            // 构建HTTP响应
-            string response = "HTTP/1.1 200 OK\r\n"
-                            "Content-Type: " + contentType + "\r\n"
-                            "\r\n" + imageContent.str();
-            
-            send(client_socket, response.c_str(), response.size(), 0);
-            cout << "sent image" << endl << endl;
-            imageFile.close();
-            }
+            cout<<"GET /image.jpg"<<endl;
+            ifstream imageFile(rootDir+"/image.jpg");
+            if (imageFile.is_open()) {
+                stringstream imageContent;
+                imageContent << imageFile.rdbuf();
+                
+                // 根据图像文件扩展名确定内容类型
+                string contentType = "image/jpeg"; // 根据实际的图像类型进行修改
+                
+                // 构建HTTP响应
+                string response = "HTTP/1.1 200 OK\r\n"
+                                "Content-Type: " + contentType + "\r\n"
+                                "\r\n" + imageContent.str();
+                
+                send(client_socket, response.c_str(), response.size(), 0);
+                cout << "sent image" << endl << endl;
+                imageFile.close();
+                }
         }
 
         else {
