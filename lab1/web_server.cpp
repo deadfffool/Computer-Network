@@ -23,12 +23,19 @@ int main(int argc, char* argv[]) {
     // 解析命令行参数，设置配置项
     int port = (argc > 1) ? atoi(argv[1]) : DEFAULT_PORT;
     string rootDir = (argc > 2) ? argv[2] : DEFAULT_ROOT_DIR;
+    string listenAddress = (argc > 3) ? argv[3] : "0.0.0.0"; // 默认监听所有网络接口
 
     // 绑定服务器地址和端口
     struct sockaddr_in server_address;
     server_address.sin_family = AF_INET;
     server_address.sin_port = htons(port);
-    server_address.sin_addr.s_addr = INADDR_ANY;
+
+    // 将监听地址从字符串转换为网络地址
+    if (inet_pton(AF_INET, listenAddress.c_str(), &(server_address.sin_addr)) <= 0) {
+        cerr << "Invalid listen address" << endl;
+        return 1;
+    }
+
     if (bind(server_socket, (struct sockaddr*)&server_address, sizeof(server_address)) == -1) {
         cerr << "bind failed" << endl;
         return 1;
@@ -135,6 +142,7 @@ int main(int argc, char* argv[]) {
                                       "<html><body><h1>404 Not Found</h1></body></html>";
 
             send(client_socket, notFoundResponse.c_str(), notFoundResponse.size(), 0);
+            cout << "404 not found" << endl;
         }
 
         // 关闭客户端连接
