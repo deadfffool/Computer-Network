@@ -1,11 +1,10 @@
 cmake_minimum_required(VERSION 3.10)
-project(StopWait)
+project(Lab2)
 
 # 使用C++编译器
 set(CMAKE_CXX_COMPILER g++)
 # 设置编译选项（注意正确的写法）
 set(CMAKE_CXX_FLAGS -fexec-charset=GBK)
-
 # 使用C++11标准
 add_definitions(-std=c++11)
 
