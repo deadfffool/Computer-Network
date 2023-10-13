@@ -1,0 +1,3 @@
+/home/miles/Computer-Network/lab2/StopWait/GBN/CMakeFiles/stop_wait.dir
+/home/miles/Computer-Network/lab2/StopWait/GBN/CMakeFiles/edit_cache.dir
+/home/miles/Computer-Network/lab2/StopWait/GBN/CMakeFiles/rebuild_cache.dir
