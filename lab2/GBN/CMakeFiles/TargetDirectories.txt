@@ -1,0 +1,3 @@
+/home/miles/HUST-Computer-Network/lab2/GBN/CMakeFiles/GBN.dir
+/home/miles/HUST-Computer-Network/lab2/GBN/CMakeFiles/edit_cache.dir
+/home/miles/HUST-Computer-Network/lab2/GBN/CMakeFiles/rebuild_cache.dir
