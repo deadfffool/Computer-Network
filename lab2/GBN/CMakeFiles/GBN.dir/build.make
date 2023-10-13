@@ -83,46 +83,46 @@ CMakeFiles/GBN.dir/GBN.cpp.s: cmake_force
 	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBN.dir/GBN.cpp.s"
 	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/miles/HUST-Computer-Network/lab2/GBN/GBN.cpp -o CMakeFiles/GBN.dir/GBN.cpp.s
 
-CMakeFiles/GBN.dir/GBNReceiver.cpp.o: CMakeFiles/GBN.dir/flags.make
-CMakeFiles/GBN.dir/GBNReceiver.cpp.o: GBNReceiver.cpp
-CMakeFiles/GBN.dir/GBNReceiver.cpp.o: CMakeFiles/GBN.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/miles/HUST-Computer-Network/lab2/GBN/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/GBN.dir/GBNReceiver.cpp.o"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GBN.dir/GBNReceiver.cpp.o -MF CMakeFiles/GBN.dir/GBNReceiver.cpp.o.d -o CMakeFiles/GBN.dir/GBNReceiver.cpp.o -c /home/miles/HUST-Computer-Network/lab2/GBN/GBNReceiver.cpp
+CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o: CMakeFiles/GBN.dir/flags.make
+CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o: GBNRdtReceiver.cpp
+CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o: CMakeFiles/GBN.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/miles/HUST-Computer-Network/lab2/GBN/CMakeFiles --progress-num=$(CMAKE_PROGRESS_2) "Building CXX object CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o -MF CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o.d -o CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o -c /home/miles/HUST-Computer-Network/lab2/GBN/GBNRdtReceiver.cpp
 
-CMakeFiles/GBN.dir/GBNReceiver.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBN.dir/GBNReceiver.cpp.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/miles/HUST-Computer-Network/lab2/GBN/GBNReceiver.cpp > CMakeFiles/GBN.dir/GBNReceiver.cpp.i
+CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.i"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/miles/HUST-Computer-Network/lab2/GBN/GBNRdtReceiver.cpp > CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.i
 
-CMakeFiles/GBN.dir/GBNReceiver.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBN.dir/GBNReceiver.cpp.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/miles/HUST-Computer-Network/lab2/GBN/GBNReceiver.cpp -o CMakeFiles/GBN.dir/GBNReceiver.cpp.s
+CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.s"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/miles/HUST-Computer-Network/lab2/GBN/GBNRdtReceiver.cpp -o CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.s
 
-CMakeFiles/GBN.dir/GBNSender.cpp.o: CMakeFiles/GBN.dir/flags.make
-CMakeFiles/GBN.dir/GBNSender.cpp.o: GBNSender.cpp
-CMakeFiles/GBN.dir/GBNSender.cpp.o: CMakeFiles/GBN.dir/compiler_depend.ts
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/miles/HUST-Computer-Network/lab2/GBN/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/GBN.dir/GBNSender.cpp.o"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GBN.dir/GBNSender.cpp.o -MF CMakeFiles/GBN.dir/GBNSender.cpp.o.d -o CMakeFiles/GBN.dir/GBNSender.cpp.o -c /home/miles/HUST-Computer-Network/lab2/GBN/GBNSender.cpp
+CMakeFiles/GBN.dir/GBNRdtSender.cpp.o: CMakeFiles/GBN.dir/flags.make
+CMakeFiles/GBN.dir/GBNRdtSender.cpp.o: GBNRdtSender.cpp
+CMakeFiles/GBN.dir/GBNRdtSender.cpp.o: CMakeFiles/GBN.dir/compiler_depend.ts
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/miles/HUST-Computer-Network/lab2/GBN/CMakeFiles --progress-num=$(CMAKE_PROGRESS_3) "Building CXX object CMakeFiles/GBN.dir/GBNRdtSender.cpp.o"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -MD -MT CMakeFiles/GBN.dir/GBNRdtSender.cpp.o -MF CMakeFiles/GBN.dir/GBNRdtSender.cpp.o.d -o CMakeFiles/GBN.dir/GBNRdtSender.cpp.o -c /home/miles/HUST-Computer-Network/lab2/GBN/GBNRdtSender.cpp
 
-CMakeFiles/GBN.dir/GBNSender.cpp.i: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBN.dir/GBNSender.cpp.i"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/miles/HUST-Computer-Network/lab2/GBN/GBNSender.cpp > CMakeFiles/GBN.dir/GBNSender.cpp.i
+CMakeFiles/GBN.dir/GBNRdtSender.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/GBN.dir/GBNRdtSender.cpp.i"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/miles/HUST-Computer-Network/lab2/GBN/GBNRdtSender.cpp > CMakeFiles/GBN.dir/GBNRdtSender.cpp.i
 
-CMakeFiles/GBN.dir/GBNSender.cpp.s: cmake_force
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBN.dir/GBNSender.cpp.s"
-	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/miles/HUST-Computer-Network/lab2/GBN/GBNSender.cpp -o CMakeFiles/GBN.dir/GBNSender.cpp.s
+CMakeFiles/GBN.dir/GBNRdtSender.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/GBN.dir/GBNRdtSender.cpp.s"
+	g++ $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/miles/HUST-Computer-Network/lab2/GBN/GBNRdtSender.cpp -o CMakeFiles/GBN.dir/GBNRdtSender.cpp.s
 
 # Object files for target GBN
 GBN_OBJECTS = \
 "CMakeFiles/GBN.dir/GBN.cpp.o" \
-"CMakeFiles/GBN.dir/GBNReceiver.cpp.o" \
-"CMakeFiles/GBN.dir/GBNSender.cpp.o"
+"CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o" \
+"CMakeFiles/GBN.dir/GBNRdtSender.cpp.o"
 
 # External object files for target GBN
 GBN_EXTERNAL_OBJECTS =
 
 GBN: CMakeFiles/GBN.dir/GBN.cpp.o
-GBN: CMakeFiles/GBN.dir/GBNReceiver.cpp.o
-GBN: CMakeFiles/GBN.dir/GBNSender.cpp.o
+GBN: CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o
+GBN: CMakeFiles/GBN.dir/GBNRdtSender.cpp.o
 GBN: CMakeFiles/GBN.dir/build.make
 GBN: ../lib/libnetsim.a
 GBN: CMakeFiles/GBN.dir/link.txt

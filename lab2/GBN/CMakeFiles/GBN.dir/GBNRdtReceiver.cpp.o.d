@@ -1,5 +1,5 @@
-CMakeFiles/GBN.dir/GBNReceiver.cpp.o: \
- /home/miles/HUST-Computer-Network/lab2/GBN/GBNReceiver.cpp \
+CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o: \
+ /home/miles/HUST-Computer-Network/lab2/GBN/GBNRdtReceiver.cpp \
  /usr/include/stdc-predef.h \
  /home/miles/HUST-Computer-Network/lab2/include/Global.h \
  /home/miles/HUST-Computer-Network/lab2/include/Tool.h \

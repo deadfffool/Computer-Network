@@ -1,0 +1,1 @@
+g++ -fexec-charset=GBK -g CMakeFiles/SR.dir/SR/SR.cpp.o CMakeFiles/SR.dir/SR/SRReceiver.cpp.o CMakeFiles/SR.dir/SR/SRSender.cpp.o -o /home/miles/HUST-Computer-Network/lab2/SR/SR  /home/miles/HUST-Computer-Network/lab2/lib/libnetsim.a 

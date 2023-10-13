@@ -1,6 +1,7 @@
 {
     "cmake.sourceDirectory": "/home/miles/HUST-Computer-Network/lab2",
     "files.associations": {
-        "new": "cpp"
+        "new": "cpp",
+        "iostream": "cpp"
     }
 }

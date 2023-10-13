@@ -1,1 +1,1 @@
-g++ -fexec-charset=GBK CMakeFiles/GBN.dir/GBN.cpp.o CMakeFiles/GBN.dir/GBNReceiver.cpp.o CMakeFiles/GBN.dir/GBNSender.cpp.o -o GBN  ../lib/libnetsim.a 
+g++ -fexec-charset=GBK CMakeFiles/GBN.dir/GBN.cpp.o CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o CMakeFiles/GBN.dir/GBNRdtSender.cpp.o -o GBN  ../lib/libnetsim.a 

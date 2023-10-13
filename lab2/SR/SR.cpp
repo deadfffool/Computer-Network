@@ -18,8 +18,8 @@ int main(int argc, char* argv[])
 	pns->init();
 	pns->setRtdSender(ps);
 	pns->setRtdReceiver(pr);
-	pns->setInputFile("/home/miles/Computer-Network/lab2/input.txt");
-	pns->setOutputFile("/home/miles/Computer-Network/lab2/output.txt");
+	pns->setInputFile("/home/miles/HUST-Computer-Network/lab2/input.txt");
+	pns->setOutputFile("/home/miles/HUST-Computer-Network/lab2/output.txt");
 
 	pns->start();
 

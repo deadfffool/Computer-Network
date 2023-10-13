@@ -1,10 +1,10 @@
 file(REMOVE_RECURSE
   "CMakeFiles/GBN.dir/GBN.cpp.o"
   "CMakeFiles/GBN.dir/GBN.cpp.o.d"
-  "CMakeFiles/GBN.dir/GBNReceiver.cpp.o"
-  "CMakeFiles/GBN.dir/GBNReceiver.cpp.o.d"
-  "CMakeFiles/GBN.dir/GBNSender.cpp.o"
-  "CMakeFiles/GBN.dir/GBNSender.cpp.o.d"
+  "CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o"
+  "CMakeFiles/GBN.dir/GBNRdtReceiver.cpp.o.d"
+  "CMakeFiles/GBN.dir/GBNRdtSender.cpp.o"
+  "CMakeFiles/GBN.dir/GBNRdtSender.cpp.o.d"
   "GBN"
   "GBN.pdb"
 )
