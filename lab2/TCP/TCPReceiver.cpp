@@ -45,7 +45,7 @@ void TCPRdtReceiver::receive(const Packet &packet) {
 			pUtils->printPacket("Receiver seq error", packet);
 		}
 		pUtils->printPacket("Receiver resend ack", lastAckPkt);
-		pns->sendToNetworkLayer(SENDER, lastAckPkt);	//调用模拟网络环境的sendToNetworkLayer，通过网络层发送上次的确认报文
+		pns->sendToNetworkLayer(SENDER, lastAckPkt);
 
 	}
 }
