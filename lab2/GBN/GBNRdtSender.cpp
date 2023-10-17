@@ -23,11 +23,8 @@ bool GBNRdtSender::send(const Message &message)
 {
 	waitingState = getWaitingState();
 	if (waitingState)
-	{ //发送方处于等待确认状态
-		cout << "window is full" << endl;
 		return false;
-	}
-	Allpacket[nextseqnum].acknum = -1; //忽略该字段
+	Allpacket[nextseqnum].acknum = -1; 
 	Allpacket[nextseqnum].seqnum = nextseqnum;
 	Allpacket[nextseqnum].checksum = 0;
 	memcpy(Allpacket[nextseqnum].payload, message.data, sizeof(message.data));

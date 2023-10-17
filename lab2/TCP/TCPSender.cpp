@@ -1,71 +1,117 @@
-
 #include "Global.h"
-#include "StopWaitRdtSender.h"
+#include "TCPRdtSender.h"
 
+TCPRdtSender::TCPRdtSender() 
+{
+	waitingState = false;
+	base = 0;
+	nextseqnum = 0;
+	N = 4;
+	seqsize = 8;
+	Packet temp;
+	redundack = 0;
+}
 
-StopWaitRdtSender::StopWaitRdtSender():expectSequenceNumberSend(0),waitingState(false)
+TCPRdtSender::~TCPRdtSender()
 {
 }
 
-
-StopWaitRdtSender::~StopWaitRdtSender()
+bool TCPRdtSender::getWaitingState()
 {
+	return (base + N) % seqsize == nextseqnum % seqsize;
 }
 
-
-
-bool StopWaitRdtSender::getWaitingState() {
-	return waitingState;
-}
-
-
-
-
-bool StopWaitRdtSender::send(const Message &message) {
-	if (this->waitingState) { //发送方处于等待确认状态
+bool TCPRdtSender::isinwindow(int seqNum)
+{
+	if ((base + N) % seqsize > base)
+		return (seqNum >= base) && (seqNum < (base + N) % seqsize);
+	else if ((base + N) % seqsize < base)
+		return (seqNum >= base) || (seqNum < (base + N) % seqsize);
+	else
 		return false;
-	}
+}
 
-	this->packetWaitingAck.acknum = -1; //忽略该字段
-	this->packetWaitingAck.seqnum = this->expectSequenceNumberSend;
-	this->packetWaitingAck.checksum = 0;
-	memcpy(this->packetWaitingAck.payload, message.data, sizeof(message.data));
-	this->packetWaitingAck.checksum = pUtils->calculateCheckSum(this->packetWaitingAck);
-	pUtils->printPacket("发送方发送报文", this->packetWaitingAck);
-	pns->startTimer(SENDER, Configuration::TIME_OUT,this->packetWaitingAck.seqnum);			//启动发送方定时器
-	pns->sendToNetworkLayer(RECEIVER, this->packetWaitingAck);								//调用模拟网络环境的sendToNetworkLayer，通过网络层发送到对方
+bool TCPRdtSender::send(const Message &message)
+{
+	waitingState = getWaitingState();
+	if (waitingState)
+		return false;
+	Allpacket[nextseqnum].acknum = -1; 
+	Allpacket[nextseqnum].seqnum = nextseqnum;
+	Allpacket[nextseqnum].checksum = 0;
+	memcpy(Allpacket[nextseqnum].payload, message.data, sizeof(message.data));
+	Allpacket[nextseqnum].checksum = pUtils->calculateCheckSum(Allpacket[nextseqnum]);
 
-	this->waitingState = true;																					//进入等待状态
+	pUtils->printPacket("Sender send packet", Allpacket[nextseqnum]);
+	printSlideWindow();
+	if (base == nextseqnum)
+		pns->startTimer(SENDER, Configuration::TIME_OUT, base); 
+	pns->sendToNetworkLayer(RECEIVER, Allpacket[nextseqnum]); 
+
+	nextseqnum = (nextseqnum + 1) % seqsize;
+	printSlideWindow();
 	return true;
 }
 
-void StopWaitRdtSender::receive(const Packet &ackPkt) {
-	if (this->waitingState == true) {//如果发送方处于等待ack的状态，作如下处理；否则什么都不做
-		//检查校验和是否正确
-		int checkSum = pUtils->calculateCheckSum(ackPkt);
+void TCPRdtSender::receive(const Packet &ackPkt)
+{
 
-		//如果校验和正确，并且确认序号=发送方已发送并等待确认的数据包序号
-		if (checkSum == ackPkt.checksum && ackPkt.acknum == this->packetWaitingAck.seqnum) {
-			this->expectSequenceNumberSend = 1 - this->expectSequenceNumberSend;			//下一个发送序号在0-1之间切换
-			this->waitingState = false;
-			pUtils->printPacket("发送方正确收到确认", ackPkt);
-			pns->stopTimer(SENDER, this->packetWaitingAck.seqnum);		//关闭定时器
-		}
-		else {
-			pUtils->printPacket("发送方没有正确收到确认，重发上次发送的报文", this->packetWaitingAck);
-			pns->stopTimer(SENDER, this->packetWaitingAck.seqnum);									//首先关闭定时器
-			pns->startTimer(SENDER, Configuration::TIME_OUT, this->packetWaitingAck.seqnum);			//重新启动发送方定时器
-			pns->sendToNetworkLayer(RECEIVER, this->packetWaitingAck);								//重新发送数据包
+	int checkSum = pUtils->calculateCheckSum(ackPkt);
 
+	if (checkSum == ackPkt.checksum && isinwindow(ackPkt.acknum))
+	{
+		base = (ackPkt.acknum + 1) % seqsize;
+		pUtils->printPacket("Sender receive ack", ackPkt);
+		printSlideWindow();
+		pns->stopTimer(SENDER, base);
+		if (base != nextseqnum)
+			pns->startTimer(SENDER, Configuration::TIME_OUT, base);
+		redundack = 0;
+	}
+	else if (!isinwindow(ackPkt.acknum))
+	{
+		redundack = redundack + 1;
+		if(redundack == 3)
+		{
+			pns->stopTimer(SENDER, base);
+			pns->sendToNetworkLayer(RECEIVER, Allpacket[base]);
+			pns->startTimer(SENDER, Configuration::TIME_OUT, base);
+			pUtils->printPacket("Sender receive 3 ack and resend packet", Allpacket[base]);
+			redundack = 0;
 		}
-	}	
+	}
 }
 
-void StopWaitRdtSender::timeoutHandler(int seqNum) {
-	//唯一一个定时器,无需考虑seqNum
-	pUtils->printPacket("发送方定时器时间到，重发上次发送的报文", this->packetWaitingAck);
-	pns->stopTimer(SENDER,seqNum);										//首先关闭定时器
-	pns->startTimer(SENDER, Configuration::TIME_OUT,seqNum);			//重新启动发送方定时器
-	pns->sendToNetworkLayer(RECEIVER, this->packetWaitingAck);			//重新发送数据包
+void TCPRdtSender::timeoutHandler(int seqNum)
+{
+	if (base == nextseqnum)
+		return;
+	else
+	{
+		pns->startTimer(SENDER, Configuration::TIME_OUT, base);
+		pns->sendToNetworkLayer(RECEIVER, Allpacket[base]);
+		pUtils->printPacket("timeout", Allpacket[base]);
+	}
+}
 
+void TCPRdtSender::printSlideWindow()
+{
+	int i;
+	for (i = 0; i < seqsize; i++)
+	{
+		if (i == base)
+			std::cout << "(";
+
+		if (i == nextseqnum)
+			std::cout << "[" << i << "]";
+		else
+		{
+			std::cout << i;
+		}
+
+		if (i == (base + N - 1) % seqsize)
+			std::cout << ")";
+		std::cout << "  ";
+	}
+	std::cout << std::endl;
 }
