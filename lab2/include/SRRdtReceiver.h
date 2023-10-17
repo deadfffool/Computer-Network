@@ -4,11 +4,11 @@
 class SRRdtReceiver :public RdtReceiver
 {
 private:
-	int expectSequenceNumberRcvd;	
+	int expectseq;	
 	int seqsize;
 	int N;
-	int tempPacketrcv[8];
-	Packet lastAckPkt;		
+	int rcvstate[8];
+	Packet lastAckPkt;
 	Packet temppacket[8];
 
 public:

@@ -35,8 +35,8 @@ bool GBNRdtSender::send(const Message &message)
 	pUtils->printPacket("Sender send packet", Allpacket[nextseqnum]);
 	printSlideWindow();
 	if (base == nextseqnum)
-		pns->startTimer(SENDER, Configuration::TIME_OUT, base); //启动发送方定时器
-	pns->sendToNetworkLayer(RECEIVER, Allpacket[nextseqnum]);   //调用模拟网络环境的sendToNetworkLayer，通过网络层发送到对方
+		pns->startTimer(SENDER, Configuration::TIME_OUT, base); 
+	pns->sendToNetworkLayer(RECEIVER, Allpacket[nextseqnum]);   
 	nextseqnum = (nextseqnum + 1) % seqsize;
 	printSlideWindow();
 	return true;
@@ -47,7 +47,6 @@ void GBNRdtSender::receive(const Packet &ackPkt)
 
 	int checkSum = pUtils->calculateCheckSum(ackPkt);
 
-	//如果校验和正确，并且确认序号=发送方已发送并等待确认的数据包序号
 	if (checkSum == ackPkt.checksum)
 	{
 		base = (ackPkt.acknum + 1) % seqsize;
