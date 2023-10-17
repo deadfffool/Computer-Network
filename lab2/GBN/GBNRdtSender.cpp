@@ -32,7 +32,7 @@ bool GBNRdtSender::send(const Message &message)
 	pUtils->printPacket("Sender send packet", Allpacket[nextseqnum]);
 	printSlideWindow();
 	if (base == nextseqnum)
-		pns->startTimer(SENDER, Configuration::TIME_OUT, base); 
+		pns->startTimer(SENDER, Configuration::TIME_OUT,0); 
 	pns->sendToNetworkLayer(RECEIVER, Allpacket[nextseqnum]);   
 	nextseqnum = (nextseqnum + 1) % seqsize;
 	printSlideWindow();
@@ -50,11 +50,11 @@ void GBNRdtSender::receive(const Packet &ackPkt)
 		pUtils->printPacket("Sender receive ack", ackPkt);
 		printSlideWindow();
 		if (base == nextseqnum)
-			pns->stopTimer(SENDER, base);
+			pns->stopTimer(SENDER, 0);
 		else
 		{
-			pns->stopTimer(SENDER, base);
-			pns->startTimer(SENDER, Configuration::TIME_OUT, base);
+			pns->stopTimer(SENDER, 0);
+			pns->startTimer(SENDER, Configuration::TIME_OUT, 0);
 		}
 	}
 	else
@@ -63,12 +63,12 @@ void GBNRdtSender::receive(const Packet &ackPkt)
 
 void GBNRdtSender::timeoutHandler(int seqNum)
 {
-	if (base == nextseqnum) //窗口为空的特殊情况
+	if (base == nextseqnum)
 		return;
 	else
 	{
-		pns->stopTimer(SENDER, base);
-		pns->startTimer(SENDER, Configuration::TIME_OUT, base);
+		pns->stopTimer(SENDER, 0);
+		pns->startTimer(SENDER, Configuration::TIME_OUT, 0);
 		for (int i = base; i != nextseqnum; i = (i + 1) % seqsize)
 		{
 			pns->sendToNetworkLayer(RECEIVER, Allpacket[i]);

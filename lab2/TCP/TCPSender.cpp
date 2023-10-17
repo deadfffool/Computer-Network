@@ -45,7 +45,7 @@ bool TCPRdtSender::send(const Message &message)
 	pUtils->printPacket("Sender send packet", Allpacket[nextseqnum]);
 	printSlideWindow();
 	if (base == nextseqnum)
-		pns->startTimer(SENDER, Configuration::TIME_OUT, base); 
+		pns->startTimer(SENDER, Configuration::TIME_OUT, 0); 
 	pns->sendToNetworkLayer(RECEIVER, Allpacket[nextseqnum]); 
 
 	nextseqnum = (nextseqnum + 1) % seqsize;
@@ -58,28 +58,33 @@ void TCPRdtSender::receive(const Packet &ackPkt)
 
 	int checkSum = pUtils->calculateCheckSum(ackPkt);
 
-	if (checkSum == ackPkt.checksum && isinwindow(ackPkt.acknum))
+	if (checkSum == ackPkt.checksum )
 	{
-		base = (ackPkt.acknum + 1) % seqsize;
-		pUtils->printPacket("Sender receive ack", ackPkt);
-		printSlideWindow();
-		pns->stopTimer(SENDER, base);
-		if (base != nextseqnum)
-			pns->startTimer(SENDER, Configuration::TIME_OUT, base);
-		redundack = 0;
-	}
-	else if (!isinwindow(ackPkt.acknum))
-	{
-		redundack = redundack + 1;
-		if(redundack == 3)
+		if (isinwindow(ackPkt.acknum))
 		{
-			pns->stopTimer(SENDER, base);
-			pns->sendToNetworkLayer(RECEIVER, Allpacket[base]);
-			pns->startTimer(SENDER, Configuration::TIME_OUT, base);
-			pUtils->printPacket("Sender receive 3 ack and resend packet", Allpacket[base]);
+			base = (ackPkt.acknum + 1) % seqsize;
+			pUtils->printPacket("Sender receive ack", ackPkt);
+			printSlideWindow();
+			pns->stopTimer(SENDER,0);
+			if (base != nextseqnum)
+				pns->startTimer(SENDER, Configuration::TIME_OUT,0);
 			redundack = 0;
 		}
+		else
+		{
+			redundack = redundack + 1;
+			if(redundack == 3)
+			{
+				pns->stopTimer(SENDER,0);
+				pns->sendToNetworkLayer(RECEIVER, Allpacket[base]);
+				pns->startTimer(SENDER, Configuration::TIME_OUT,0);
+				pUtils->printPacket("Sender receive 3 ack and resend packet", Allpacket[base]);
+				redundack = 0;
+			}
+		}
 	}
+	else
+		pUtils->printPacket("Sender receive broken packet",ackPkt);
 }
 
 void TCPRdtSender::timeoutHandler(int seqNum)
@@ -88,7 +93,8 @@ void TCPRdtSender::timeoutHandler(int seqNum)
 		return;
 	else
 	{
-		pns->startTimer(SENDER, Configuration::TIME_OUT, base);
+		pns->stopTimer(SENDER, 0);
+		pns->startTimer(SENDER, Configuration::TIME_OUT, 0);
 		pns->sendToNetworkLayer(RECEIVER, Allpacket[base]);
 		pUtils->printPacket("timeout", Allpacket[base]);
 	}
