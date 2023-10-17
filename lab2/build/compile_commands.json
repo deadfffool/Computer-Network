@@ -1,0 +1,17 @@
+[
+{
+  "directory": "/home/miles/HUST-Computer-Network/lab2/build",
+  "command": "g++  -I/home/miles/HUST-Computer-Network/lab2/include -fexec-charset=GBK -g   -std=c++11 -o CMakeFiles/SR.dir/SR/SR.cpp.o -c /home/miles/HUST-Computer-Network/lab2/SR/SR.cpp",
+  "file": "/home/miles/HUST-Computer-Network/lab2/SR/SR.cpp"
+},
+{
+  "directory": "/home/miles/HUST-Computer-Network/lab2/build",
+  "command": "g++  -I/home/miles/HUST-Computer-Network/lab2/include -fexec-charset=GBK -g   -std=c++11 -o CMakeFiles/SR.dir/SR/SRReceiver.cpp.o -c /home/miles/HUST-Computer-Network/lab2/SR/SRReceiver.cpp",
+  "file": "/home/miles/HUST-Computer-Network/lab2/SR/SRReceiver.cpp"
+},
+{
+  "directory": "/home/miles/HUST-Computer-Network/lab2/build",
+  "command": "g++  -I/home/miles/HUST-Computer-Network/lab2/include -fexec-charset=GBK -g   -std=c++11 -o CMakeFiles/SR.dir/SR/SRSender.cpp.o -c /home/miles/HUST-Computer-Network/lab2/SR/SRSender.cpp",
+  "file": "/home/miles/HUST-Computer-Network/lab2/SR/SRSender.cpp"
+}
+]

@@ -62,9 +62,7 @@ void GBNRdtSender::receive(const Packet &ackPkt)
 		}
 	}
 	else
-	{
 		pUtils->printPacket("packet is broken", ackPkt);
-	}
 }
 
 void GBNRdtSender::timeoutHandler(int seqNum)

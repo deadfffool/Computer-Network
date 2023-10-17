@@ -1,0 +1,10 @@
+lab2/GBN/Makefile
+lab2/GBN/CMakeFiles/
+*.cmake
+lab2/GBN/CMakeCache.txt
+lab2/TCP/Makefile
+lab2/TCP/CMakeFiles/
+lab2/SR/Makefile
+lab2/SR/CMakeFiles/
+lab2/TCP/CMakeCache.txt
+lab2/SR/CMakeCache.txt
