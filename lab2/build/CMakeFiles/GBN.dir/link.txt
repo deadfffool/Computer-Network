@@ -1,0 +1,1 @@
+g++ -fexec-charset=GBK -g CMakeFiles/GBN.dir/GBN/GBN.cpp.o CMakeFiles/GBN.dir/GBN/GBNRdtReceiver.cpp.o CMakeFiles/GBN.dir/GBN/GBNRdtSender.cpp.o -o /home/miles/HUST-Computer-Network/lab2/GBN/GBN  /home/miles/HUST-Computer-Network/lab2/lib/libnetsim.a 

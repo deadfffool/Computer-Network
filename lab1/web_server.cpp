@@ -10,7 +10,7 @@
 using namespace std;
 
 const int DEFAULT_PORT = 8080;             // 服务器监听端口
-const string DEFAULT_ROOT_DIR = "/home/miles/Computer-Network/lab1/webroot"; // 服务器主目录
+const string DEFAULT_ROOT_DIR = "/home/miles/HUST-Computer-Network/lab1/webroot"; // 服务器主目录
 
 int main(int argc, char* argv[]) {
     // 创建套接字
